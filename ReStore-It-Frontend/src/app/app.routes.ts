@@ -22,13 +22,6 @@ export const routes: Routes = [
         { path: "login", component: UserLoginComponent}]
   },
 
-  {
-    path: '', component: GuestLayoutComponent, children: [
-      { path: '', component: GuestHomeComponent, pathMatch: "full" },
-      { path: ':name/:id', component: GuestProductPageComponent} //idk if i want a different product details layout...
-    ]
-  }
-
   //research what authentication tokens i can use in this routes.ts file
   //like that I can easily do if(!businessUser) redirect to everything guest related
 
