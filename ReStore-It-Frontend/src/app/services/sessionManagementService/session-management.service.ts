@@ -9,7 +9,7 @@ export class SessionManagementService {
 
   constructor() { }
 
-  //my session data should be the role: business
+  //my session data can be the role: business, or it can be the user itself. -> I chose the user itself :)
   setSession(sessionData: any): void{
     localStorage.setItem(this.sessionKey, JSON.stringify(sessionData))
   }
@@ -27,9 +27,8 @@ export class SessionManagementService {
     return !!this.getSession();
   }
 
-  // Optionally handle session expiry (add your logic)
   handleSessionExpiry(): void {
-    // Example: Implement session expiration logic here
+    // research how to implement session expiry for extra security
   }
 
 }

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionManagementService } from '../../../services/sessionManagementService/session-management.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
+  imports: [CommonModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
@@ -17,7 +20,7 @@ export class SidebarComponent implements OnInit {
     scrollbarClickScroll: true,
   };
 
-  constructor() { }
+  constructor(public session: SessionManagementService) { }
 
   ngOnInit(): void {
     this.initializeScrollbars();
@@ -34,6 +37,14 @@ export class SidebarComponent implements OnInit {
   }
 
   //End Navigation
+
+  signOut(): void{
+    //session end
+    this.session.endSession();
+    if (this.router.url !== '/business/login') {
+      this.router.navigate(['/business/login'], { replaceUrl: true });
+    }
+  }
 
   private initializeScrollbars(): void {
     const sidebarWrapper = document.querySelector(this.SELECTOR_SIDEBAR_WRAPPER);

@@ -1,15 +1,14 @@
 <div class="modal-overlay" *ngIf="isVisible">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info">
-        <h5 class="modal-title">{{ title }}</h5>
-        <button type="button" class="btn-close position-absolute top-0 end-0" (click)="onCancel()"></button>
+      <div class="modal-header position-relative">
+        <h5 class="modal-title text-white">{{ title }}</h5>
       </div>
       <div class="modal-body">
         <p>{{ message }}</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-info" (click)="onCancel()">Ok</button>
+        <button class="btn btn-info" (click)="onCancel()">Close</button>
       </div>
     </div>
   </div>

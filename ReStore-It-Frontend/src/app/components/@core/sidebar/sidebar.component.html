@@ -1,5 +1,5 @@
 <!--begin::Sidebar-->
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" *ngIf="this.session.isAuthenticated()">
   <!--begin::Sidebar Brand-->
   <div class="sidebar-brand">
     <!--begin::Brand Link-->
@@ -20,6 +20,9 @@
       <!--begin::Sidebar Menu-->
       <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
         <li (click)="navigateToHome()" class="nav-item menu-open">
+          <!--Make this toggle, if you're on the business, go to home. If you signed in AND using restore it as a guest,
+          the button should now say Switch to Business-->
+
           <a class="nav-link active">
             <i class="nav-icon bi bi-house"></i>
             <p>
@@ -59,7 +62,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link" (click)="signOut()">
             <p>
               Sign out
             </p>

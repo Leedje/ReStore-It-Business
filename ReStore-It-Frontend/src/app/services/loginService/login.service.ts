@@ -9,9 +9,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  ValidateLogin(email: string, password: string): Observable<boolean>{
-    return this.http.get<boolean>(`/business/login/validate`, {
-      params: { email, password }}
-)
+  ValidateLogin(email: string, password: string): Observable<HttpResponse<any>>{
+    return this.http.get(`/business/login/validate`, { params: { email, password }, observe: 'response'});
   }
 }

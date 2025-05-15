@@ -4,10 +4,11 @@ import { CategoryDTO } from '../../../../../dtos/categoryDTO';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../../../services/productService/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-product',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.css'
 })

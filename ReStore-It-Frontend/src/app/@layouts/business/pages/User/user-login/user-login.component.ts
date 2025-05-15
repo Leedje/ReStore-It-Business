@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../../../../services/loginService/login.service';
 import { FormsModule } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
+import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
+import { UserDTO } from '../../../../../dtos/userDTO';
 
 class Login {
   constructor(
@@ -22,27 +24,40 @@ export class UserLoginComponent {
 
   loginCredentials: Login = {
     email: '',
-    password:''
+    password: ''
   }
 
-  constructor(private router: Router, private loginService: LoginService) {
+  constructor(private router: Router, private loginService: LoginService, private session: SessionManagementService) {
 
   }
 
   navigateToRegistration(): void {
     this.router.navigate(['/business/register']);
   }
+//const response = await -> try make this async in a new method below
+   validateLogin(login: Login) {
 
-  async validateLogin(login: Login) {
-
-    this.loginService.ValidateLogin(login.email, login.password).subscribe((response: boolean) => {
-      if(response == true){
-        this.router.navigate(['/business']).then(() => {
-          console.log('Navigation successful!');
-        });
-      } else {
-      // Remain on the page (give error notification that either the email or password is incorrect) }
-    }
+    this.loginService.ValidateLogin(login.email, login.password).subscribe((response: HttpResponse<any>) => {
+      const user = response.body as UserDTO;
+      this.session.setSession(user);
+      this.router.navigate(['/business'])
+    }, (error) => {
+      if (error.status == 401) {
+        // Remain on the page (give error notification that either the email or password is incorrect) }
+      }
     })
   }
+
+  // this.loginService.ValidateLogin(login.email, login.password).pipe(
+  //   catchError((error: HttpErrorResponse) => {
+  //     if (error.status === 401) {
+  //       console.error("Invalid login credentials");
+  //     }
+  //     return throwError(error);
+  //   })
+  // ).subscribe((user: UserDTO) => {
+  //   this.session.setSession(user);
+  //   this.router.navigate(['/business']);
+  // });
+
 }

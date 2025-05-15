@@ -5,6 +5,7 @@ import { producerAccessed } from '@angular/core/primitives/signals';
 import { firstValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
 
 @Component({
   selector: 'app-product-details',
@@ -13,15 +14,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-details.component.css'
 })
 export class ProductDetailsComponent implements OnInit {
-  constructor(private productService: ProductService, private urlRoute: ActivatedRoute) {
+  constructor(private productService: ProductService, private urlRoute: ActivatedRoute, private session: SessionManagementService) {
   }
 
   public product: Partial<ProductDTO> = {};
 
   ngOnInit() {
-    const id = this.urlRoute.snapshot.paramMap.get('id');
-    if (id) {
-      this.productService.GetProductByID(id).subscribe((response: Partial<ProductDTO>) => {
+    const productId = this.urlRoute.snapshot.paramMap.get('id');
+    if (productId) {
+      const userId = this.session.getSession().id as String
+      this.productService.GetProductByUserID(productId, userId).subscribe((response: Partial<ProductDTO>) => {
         this.product = response;
       },
         (error) => {

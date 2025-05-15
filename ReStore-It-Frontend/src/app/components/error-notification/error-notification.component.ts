@@ -13,9 +13,7 @@ export class ErrorNotificationComponent {
   @Input() message: String = '';
   @Input() isVisible: boolean = false;
 
-  @Output() confirm = new EventEmitter<boolean>();
-
   onCancel(): void {
-    this.confirm.emit(true);
+    this.isVisible = false;
   }
 }

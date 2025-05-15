@@ -4,6 +4,7 @@ import { ProductDTO } from '../../../../../dtos/productDTO';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogueComponent } from '../../../../../components/confirm-dialogue/confirm-dialogue.component';
+import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
 
 @Component({
   selector: 'app-products',
@@ -16,11 +17,14 @@ export class ProductsComponent implements OnInit {
   public showConfirmDialogue: boolean = false;
   private productToDelete: String | null = null;
 
+  public displaySuccess: boolean = false;
+
   public products: ProductDTO[] = [];
-  constructor(private productService: ProductService, private router: Router) { }
+  constructor(private productService: ProductService, private router: Router, private session: SessionManagementService) { }
 
   ngOnInit() {
-    this.productService.GetAllProducts().subscribe((response: ProductDTO[]) => {
+    const user = this.session.getSession();
+    this.productService.GetProductsByUserID(user.id).subscribe((response: ProductDTO[]) => {
       this.products = response;
     })
   }
@@ -51,9 +55,9 @@ export class ProductsComponent implements OnInit {
   }
 
   DeleteProduct(id: String) {
-    console.log("deleting product", id)
-    this.productService.DeleteProduct(id).subscribe(() => {
-      this.products = this.products.filter(product => product.id != id)
+    this.productService.DeleteProduct(id).subscribe((response) => {
+      if(response.status == 200 ||  response.status == 204){
+      this.products = this.products.filter(product => product.id != id)}
     }, (error) => {
       console.error("An error occured while deleting the product: ", error)
       //display error-notificatiom component

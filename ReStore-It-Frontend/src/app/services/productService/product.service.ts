@@ -9,7 +9,7 @@ import {ProductDTO} from '../../dtos/productDTO';
 export class ProductService {
   constructor(private http: HttpClient) { }
 
-  //Guest Mapping
+  //Guest Mapping ->  remove eventually
   GetAllProducts(): Observable<any>{
     return this.http.get<HttpResponse<any>>(`/products`);
   }
@@ -20,24 +20,24 @@ export class ProductService {
 
   //Business Mapping
 
-  GetProductsByUserID(userId: String){
-    this.http.get<HttpResponse<any>>(`/products/business/${userId}`);
+  GetProductsByUserID(userId: String): Observable<any>{
+    return this.http.get<HttpResponse<any>>(`/products/business/${userId}`);
   }
 
-  GetProductByUserID(userId: String){
-    this.http.get<HttpResponse<any>>(`/products/business/`);
+  GetProductByUserID(productId: String, userId: String): Observable<any>{
+    return this.http.get<HttpResponse<any>>(`/products/business/${productId}/${userId}`);
   }
 
   CreateProduct(product: ProductDTO): Observable<HttpResponse<any>>{
-    return this.http.post<HttpResponse<any>>(`/products/business/create`, product);
+    return this.http.post<HttpResponse<any>>(`/products/business/create`, product, { observe: 'response' });
   }
 
   DeleteProduct(id: String): Observable<HttpResponse<any>>{
-    return this.http.delete<HttpResponse<any>>(`/products/business/delete/${id}`);
+    return this.http.delete<HttpResponse<any>>(`/products/business/delete/${id}`, { observe: 'response' });
   }
 
   EditProduct(product: ProductDTO): Observable<HttpResponse<any>>{
-    return this.http.post<HttpResponse<any>>(`/products/business/edit`, product);
+    return this.http.post<HttpResponse<any>>(`/products/business/edit`, product, { observe: 'response' });
   }
 
 }
