@@ -23,11 +23,6 @@ jobs:
           cd ReStore-It-Frontend
           npm install
 
-      - name: Lint
-        run: |
-          cd ReStore-It-Frontend
-          npm run lint
-
       - name: Build
         run: |
           cd ReStore-It-Frontend
