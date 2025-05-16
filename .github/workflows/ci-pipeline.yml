@@ -19,16 +19,11 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: |
-          cd ReStoreIt-Frontend
-          npm install
+        run: npm install
 
       - name: Lint
-        run: |
-          cd ReStoreIt-Frontend
-          npm run lint
+        run: npm run lint
 
       - name: Build
         run: |
-          cd ReStoreIt-Frontend
           npm run build
