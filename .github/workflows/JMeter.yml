@@ -1,0 +1,33 @@
+name: Apache JMeter
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  javaVersion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Display Java Version
+        run: |
+          cd ReStore-It-Frontend
+          java -version
+
+  installJMeter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install JMeter
+        run: |
+          cd ReStore-It-Frontend
+          sudo apt-get update
+          sudo apt-get install jmeter
