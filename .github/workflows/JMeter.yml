@@ -1,4 +1,4 @@
-name: Apache JMeter
+name: Apache JMeter Performance Testing
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
 jobs:
   javaVersion:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -19,33 +18,29 @@ jobs:
           cd ReStore-It-Frontend
           java -version
 
-  installJMeter:
+  runPerformanceTest:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+      
       - name: Install JMeter
         run: |
           sudo apt-get update
           sudo apt-get install jmeter
 
-  runPerformanceTest:
-   runs-on: ubuntu-latest
+      - name: Verify JMeter Installation
+        run: jmeter -v  # Ensures JMeter is installed before proceeding
 
-   steps:
       - name: Run JMeter Load Test
         run: |
-          jmeter -n -t JMeter-performanceTests/load-test.jmx -l results.jtl
+          jmeter -n -t Restore-It-Business/performance-tests/load-test.jmx -l results.jtl
 
   uploadResults:
-   runs-on: ubuntu-latest
-
-   steps:
-     - name: Upload Results
-       uses: actions/upload-artifact@v3
-       with:
-        name: jmeter-results
-        path: results.jtl
-
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: jmeter-results
+          path: results.jtl
