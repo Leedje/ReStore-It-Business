@@ -38,7 +38,7 @@ jobs:
    steps:
       - name: Run JMeter Load Test
         run: |
-          jmeter -n -t tests/load-test.jmx -l results.jtl
+          jmeter -n -t JMeter-performanceTests/load-test.jmx -l results.jtl
 
   uploadResults:
    runs-on: ubuntu-latest
