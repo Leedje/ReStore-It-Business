@@ -30,7 +30,7 @@ jobs:
           sudo apt-get install jmeter
 
       - name: Verify JMeter Installation
-        run: jmeter -v  # Ensures JMeter is installed before proceeding
+        run: jmeter -v 
 
       - name: Run JMeter Load Test
         run: |
