@@ -37,9 +37,9 @@ export class UserLoginComponent {
 //const response = await -> try make this async in a new method below
    validateLogin(login: Login) {
 
-    this.loginService.ValidateLogin(login.email, login.password).subscribe((response: HttpResponse<any>) => {
-      const user = response.body as UserDTO;
-      this.session.setSession(user);
+    this.loginService.ValidateLogin(login.email, login.password).subscribe((response: any) => {
+      const userToken = response.token as UserDTO;
+      this.session.setSession(userToken);
       this.router.navigate(['/business'])
     }, (error) => {
       if (error.status == 401) {

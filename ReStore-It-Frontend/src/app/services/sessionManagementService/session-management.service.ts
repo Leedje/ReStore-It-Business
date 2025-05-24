@@ -6,12 +6,11 @@ import { Injectable } from '@angular/core';
 export class SessionManagementService {
 
   private sessionKey = "ReStoreIt_UserRole";
-
+  
   constructor() { }
 
-  //my session data can be the role: business, or it can be the user itself. -> I chose the user itself :)
-  setSession(sessionData: any): void{
-    localStorage.setItem(this.sessionKey, JSON.stringify(sessionData))
+  setSession(userSession: any): void{
+    localStorage.setItem(this.sessionKey, JSON.stringify(userSession))
   }
 
   getSession(): any | null {
