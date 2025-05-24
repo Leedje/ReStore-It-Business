@@ -6,15 +6,11 @@ import { Injectable } from '@angular/core';
 export class SessionManagementService {
 
   private sessionKey = "ReStoreIt_UserRole";
-  //I realized that having the same session key for everyone is not secure,
-  // everyone needs a unique session key to have their private sessions
-  //Put this discovery in my research report :)
-
+  
   constructor() { }
 
-  //my session data is the user itself
-  setSession(sessionData: any): void{
-    localStorage.setItem(this.sessionKey, JSON.stringify(sessionData))
+  setSession(userSession: any): void{
+    localStorage.setItem(this.sessionKey, JSON.stringify(userSession))
   }
 
   getSession(): any | null {
