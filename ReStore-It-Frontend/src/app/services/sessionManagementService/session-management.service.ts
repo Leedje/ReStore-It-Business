@@ -5,21 +5,22 @@ import { Injectable } from '@angular/core';
 })
 export class SessionManagementService {
 
-  private sessionKey = "ReStoreIt_UserRole";
-  
+  private token = "";
+
   constructor() { }
 
-  setSession(userSession: any): void{
-    localStorage.setItem(this.sessionKey, JSON.stringify(userSession))
+  setSession(token: string): void{
+    this.token = token;
+    localStorage.setItem("token", token)
   }
 
   getSession(): any | null {
-    const session = localStorage.getItem(this.sessionKey);
+    const session = localStorage.getItem(this.token);
     return session ? JSON.parse(session) : null;
   }
 
   endSession(): void {
-    localStorage.removeItem(this.sessionKey);
+    localStorage.removeItem(this.token);
   }
 
   isAuthenticated(): boolean {

@@ -9,7 +9,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  ValidateLogin(email: string, password: string): Observable<HttpResponse<any>>{
-    return this.http.get(`/business/login/validate`, { params: { email, password }, observe: 'response'});
+  ValidateLogin(email: string, password: string): Observable<any>{
+
+    return this.http.post(`/business/login/validate`, { email, password }, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }});
   }
 }

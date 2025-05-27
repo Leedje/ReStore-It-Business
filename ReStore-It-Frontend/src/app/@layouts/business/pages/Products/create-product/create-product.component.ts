@@ -46,7 +46,7 @@ export class CreateProductComponent implements OnInit {
     this.categoryService.GetAllCategories().subscribe((response: CategoryDTO[]) => {
       this.categories = response
     });
-    
+
     this.product.user = this.session.getSession() as UserDTO
   }
 

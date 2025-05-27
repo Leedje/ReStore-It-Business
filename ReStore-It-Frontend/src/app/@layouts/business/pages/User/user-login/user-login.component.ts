@@ -38,7 +38,7 @@ export class UserLoginComponent {
    validateLogin(login: Login) {
 
     this.loginService.ValidateLogin(login.email, login.password).subscribe((response: any) => {
-      const userToken = response.token as UserDTO;
+      const userToken = response.body.token
       this.session.setSession(userToken);
       this.router.navigate(['/business'])
     }, (error) => {
@@ -47,17 +47,5 @@ export class UserLoginComponent {
       }
     })
   }
-
-  // this.loginService.ValidateLogin(login.email, login.password).pipe(
-  //   catchError((error: HttpErrorResponse) => {
-  //     if (error.status === 401) {
-  //       console.error("Invalid login credentials");
-  //     }
-  //     return throwError(error);
-  //   })
-  // ).subscribe((user: UserDTO) => {
-  //   this.session.setSession(user);
-  //   this.router.navigate(['/business']);
-  // });
 
 }
