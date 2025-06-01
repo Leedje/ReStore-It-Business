@@ -6,13 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
 import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
 import { UserDTO } from '../../../../../dtos/userDTO';
-
-class Login {
-  constructor(
-    public email: string,
-    public password: string
-  ) { }
-}
+import { LoginDTO } from '../../../../../dtos/loginDTO';
 
 @Component({
   selector: 'app-user-login',
@@ -22,10 +16,7 @@ class Login {
 })
 export class UserLoginComponent {
 
-  loginCredentials: Login = {
-    email: '',
-    password: ''
-  }
+  loginCredentials: LoginDTO = new LoginDTO();
 
   constructor(private router: Router, private loginService: LoginService, private session: SessionManagementService) {
 
@@ -34,18 +25,27 @@ export class UserLoginComponent {
   navigateToRegistration(): void {
     this.router.navigate(['/business/register']);
   }
-//const response = await -> try make this async in a new method below
-   validateLogin(login: Login) {
+  //const response = await -> try make this async in a new method below
+  public validateLogin(login: LoginDTO) {
+    this.loginService.ValidateLogin(login).subscribe((response: HttpResponse<any>) => {
 
-    this.loginService.ValidateLogin(login.email, login.password).subscribe((response: any) => {
-      const userToken = response.body.token
-      this.session.setSession(userToken);
-      this.router.navigate(['/business'])
-    }, (error) => {
-      if (error.status == 401) {
-        // Remain on the page (give error notification that either the email or password is incorrect) }
+      if (response.status == 200 && response.body?.token) {
+          const userToken = response.body?.token;
+          this.session.setSession(userToken);
+          this.router.navigate(['/business']);
+        } else {
+          console.log("Login failed: Token missing or unexpected response.");
+        }
+      },
+      (error) => {
+        // eventually give visual display for error occured
+        if (error.status == 401) {
+          console.log("Unauthorized: Incorrect credentials.");
+        } else {
+          console.log("Login error:", error);
+        }
       }
-    })
+    );
   }
 
 }

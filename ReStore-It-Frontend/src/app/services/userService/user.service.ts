@@ -11,6 +11,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   CreateUser(user: UserDTO): Observable<HttpResponse<any>>{
-    return this.http.post<HttpResponse<any>>('/business/register', user, { observe: 'response' });
+    return this.http.post<HttpResponse<any>>('/user/register', user, { observe: 'response' });
   }
 }

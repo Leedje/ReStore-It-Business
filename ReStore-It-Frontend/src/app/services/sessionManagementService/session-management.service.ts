@@ -5,22 +5,18 @@ import { Injectable } from '@angular/core';
 })
 export class SessionManagementService {
 
-  private token = "";
-
   constructor() { }
 
   setSession(token: string): void{
-    this.token = token;
-    localStorage.setItem("token", token)
+    sessionStorage.setItem("token", token)
   }
 
   getSession(): any | null {
-    const session = localStorage.getItem(this.token);
-    return session ? JSON.parse(session) : null;
+    return sessionStorage.getItem("token");
   }
 
   endSession(): void {
-    localStorage.removeItem(this.token);
+    sessionStorage.removeItem("token");
   }
 
   isAuthenticated(): boolean {

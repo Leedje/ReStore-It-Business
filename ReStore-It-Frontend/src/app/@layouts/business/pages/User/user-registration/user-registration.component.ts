@@ -14,13 +14,7 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class UserRegistrationComponent {
 
-  user: UserDTO = {
-    id: '',
-    name: '',
-    email: '',
-    password: '',
-    products: []
-  };
+  user: UserDTO = new UserDTO();
 
   constructor(private router: Router, private userService: UserService){}
 
@@ -28,7 +22,7 @@ export class UserRegistrationComponent {
 
      this.userService.CreateUser(user).subscribe((response: HttpResponse<any>) =>{
       if (response.status == 200 || response.status == 201){
-        this.router.navigate(['/business']);
+        this.router.navigate(['/business/login']);
       }
       else{
         console.error("An internal error occured.")

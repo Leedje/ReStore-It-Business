@@ -1,9 +1,13 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { backendApiUrl } from '../app.config';
 
-export const apiInterceptor: HttpInterceptorFn = (req, next) => {
-  const modifiedRequest = req.url.startsWith('http')
-  ? req
-    :req.clone({url: `${backendApiUrl}${req.url}`})
-  return next(modifiedRequest);
+export const apiInterceptor: HttpInterceptorFn = (request, next) => {
+  const token = sessionStorage.getItem("token");
+
+  const backendRequest = request.clone({
+    url: request.url.startsWith('http') ? request.url : `${backendApiUrl}${request.url}`,
+    setHeaders:  token ? { Authorization: `Bearer ${token}` } : {}
+  });
+
+  return next(backendRequest);
 };

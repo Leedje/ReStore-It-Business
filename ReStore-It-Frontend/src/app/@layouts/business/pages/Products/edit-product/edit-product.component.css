@@ -1,0 +1,17 @@
+.product-image {
+  width: 80%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.details-box {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  min-height: 50px;
+  /* Adjust for better alignment */
+  display: flex;
+  align-items: center;
+}

@@ -1,15 +1,25 @@
 import { CategoryDTO } from "./categoryDTO";
-import { UserDTO } from "./userDTO";
 
-export interface ProductDTO{
-  id: String,
-  image: String,
-  name: String,
-  description?: String,
-  size: String,
-  price: number,
-  numberOfProducts: Number,
-  categories: CategoryDTO[],
-  seller: String
-  user: UserDTO
+export class ProductDTO{
+  id: string;
+  image: string;
+  name: string;
+  description?: string;
+  size: string;
+  price: number;
+  numberOfProducts: number;
+  categories: CategoryDTO[];
+  seller: string;
+
+  constructor() {
+    this.id ='';
+    this.image = '';
+    this.name = '';
+    this.description = 'N/A';
+    this.size = '';
+    this.price = 1.00;
+    this.numberOfProducts = 1;
+    this.categories = [];
+    this.seller = '';
+  }
 }

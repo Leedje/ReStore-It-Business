@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { ErrorNotificationComponent } from '../../../../../components/error-notification/error-notification.component';
 import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
-import { UserDTO } from '../../../../../dtos/userDTO';
+import { CategorySelectorComponent } from "../../../../../components/category-selector/category-selector.component";
 
 @Component({
   selector: 'app-create-product',
-  imports: [CommonModule, FormsModule, ErrorNotificationComponent],
+  imports: [CommonModule, FormsModule, ErrorNotificationComponent, CategorySelectorComponent],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css'
 })
@@ -24,30 +24,16 @@ export class CreateProductComponent implements OnInit {
   isDropdownOpen: boolean = false;
   selectedCategory: any = null;
 
-  product: ProductDTO = {
-    id: '',
-    image: '',
-    name: '',
-    description: '-',
-    size: '',
-    price: 1.00,
-    numberOfProducts: 1,
-    categories: [] as CategoryDTO [],
-    seller: '',
-    user: { id: "", name: "", email:"", password:""}
-  };
-
+  product: ProductDTO = new ProductDTO();
   categories: CategoryDTO[] = [];
 
   constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService, private session: SessionManagementService) {
   }
 
   ngOnInit() {
-    this.categoryService.GetAllCategories().subscribe((response: CategoryDTO[]) => {
-      this.categories = response
+    this.categoryService.GetAllCategories().subscribe((response: HttpResponse<any>) => {
+      this.categories = response.body
     });
-
-    this.product.user = this.session.getSession() as UserDTO
   }
 
   async CreateProduct(product: ProductDTO){
@@ -61,8 +47,15 @@ export class CreateProductComponent implements OnInit {
       (error) => {
         console.error(error);
         this.displayError = true;
-      }
-    );
+      });
+
+  }
+
+  ProductValid(product: ProductDTO): boolean{
+    if (product.name){
+      return true;
+    }
+    return false;
   }
 
   toggleDropdown(): void {

@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-details',
@@ -17,21 +18,23 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private productService: ProductService, private urlRoute: ActivatedRoute, private session: SessionManagementService) {
   }
 
-  public product: Partial<ProductDTO> = {};
+  public product: ProductDTO = new ProductDTO();
 
   ngOnInit() {
     const productId = this.urlRoute.snapshot.paramMap.get('id');
     if (productId) {
-      const userId = this.session.getSession().id as String
-      this.productService.GetProductByUserID(productId, userId).subscribe((response: Partial<ProductDTO>) => {
-        this.product = response;
+      this.productService.GetProductByUserID(productId).subscribe((response: HttpResponse<any>) => {
+        if (response.status == 200) {
+          this.product = response.body;
+        }
+        else {
+          // eventually show 404 page
+          console.error("No product ID found in route.")
+        }
       },
         (error) => {
           console.error(error)
         });
-    }
-    else {
-      console.error("No product ID found in route.")
     }
   }
 }
