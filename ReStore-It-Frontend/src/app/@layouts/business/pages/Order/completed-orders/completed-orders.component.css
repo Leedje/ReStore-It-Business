@@ -1,0 +1,10 @@
+.status-completed {
+  background-color: #28a745;
+  /* ✅ Green */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  /* ✅ Rounded */
+  font-weight: bold;
+  display: inline-block;
+}

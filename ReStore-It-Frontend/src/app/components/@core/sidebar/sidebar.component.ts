@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-
 export class SidebarComponent implements OnInit {
+
   private readonly router = inject(Router);
   private SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
   private Default = {
@@ -24,22 +24,25 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeScrollbars();
-    this.initializeTreeview();
   }
 
-  //Navigation (Sidebar Routing)
-  navigateToManageProducts(): void{
+  navigateToManageProducts(): void {
     this.router.navigate(['/business']);
   }
 
-  navigateToHome(): void{
+  navigateToHome(): void {
     this.router.navigate(['']);
   }
 
-  //End Navigation
+  navigateToPendingOrders(): void {
+    this.router.navigate(['/business/orders/pending']);
+  }
 
-  signOut(): void{
-    //session end
+  navigateToChat() {
+    this.router.navigate(['/business/chats']);
+    }
+
+  signOut(): void {
     this.session.endSession();
     if (this.router.url !== '/business/login') {
       this.router.navigate(['/business/login'], { replaceUrl: true });
@@ -59,33 +62,5 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  private initializeTreeview(): void {
-    const treeviewItems = document.querySelectorAll('[data-lte-toggle="treeview"]');
 
-    treeviewItems.forEach(item => {
-      item.addEventListener('click', function (event) {
-        const target = event.target as HTMLElement;
-
-        // Prevent default link behavior (e.g., page reload)
-        if (target.tagName === 'A' && target.getAttribute('href') === '#') {
-          event.preventDefault();
-        }
-
-        const parent = target.closest('.nav-item');
-        const submenu = parent?.querySelector('.nav-treeview') as HTMLElement;
-
-        // Prevent toggle if a child menu item is clicked
-        if (target.closest('.nav-treeview')) {
-          event.stopPropagation();
-          return;
-        }
-
-        // Toggle submenu
-        if (submenu) {
-          submenu.classList.toggle('menu-open');
-          submenu.style.display = submenu.classList.contains('menu-open') ? 'block' : 'none';
-        }
-      });
-    });
-  }
 }

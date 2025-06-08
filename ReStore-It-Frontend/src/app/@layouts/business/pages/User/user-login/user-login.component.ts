@@ -16,6 +16,7 @@ import { LoginDTO } from '../../../../../dtos/loginDTO';
 })
 export class UserLoginComponent {
 
+
   loginCredentials: LoginDTO = new LoginDTO();
 
   constructor(private router: Router, private loginService: LoginService, private session: SessionManagementService) {
@@ -25,18 +26,21 @@ export class UserLoginComponent {
   navigateToRegistration(): void {
     this.router.navigate(['/business/register']);
   }
+  navigateToGuest() {
+    window.location.href = "http://localhost:4200";
+  }
   //const response = await -> try make this async in a new method below
   public validateLogin(login: LoginDTO) {
     this.loginService.ValidateLogin(login).subscribe((response: HttpResponse<any>) => {
 
       if (response.status == 200 && response.body?.token) {
-          const userToken = response.body?.token;
-          this.session.setSession(userToken);
-          this.router.navigate(['/business']);
-        } else {
-          console.log("Login failed: Token missing or unexpected response.");
-        }
-      },
+        const userToken = response.body?.token;
+        this.session.setSession(userToken);
+        this.router.navigate(['/business']);
+      } else {
+        console.log("Login failed: Token missing or unexpected response.");
+      }
+    },
       (error) => {
         // eventually give visual display for error occured
         if (error.status == 401) {

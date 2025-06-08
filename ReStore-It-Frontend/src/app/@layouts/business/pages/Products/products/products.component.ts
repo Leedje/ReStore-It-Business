@@ -6,7 +6,6 @@ import { HttpResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogueComponent } from '../../../../../components/confirm-dialogue/confirm-dialogue.component';
 import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-products',

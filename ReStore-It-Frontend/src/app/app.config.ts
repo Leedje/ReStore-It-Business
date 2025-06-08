@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { apiInterceptor } from './api/api.interceptor';
 
 export const backendApiUrl = "http://localhost:8080";
+export const webSocketUrl = "ws://localhost:8080/chat";
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(withInterceptors([apiInterceptor]))],
