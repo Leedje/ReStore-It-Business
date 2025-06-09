@@ -1,8 +1,8 @@
 export class MessageDTO {
   id: string = '';
   chatRoomId: string = '';
-  sender: string = 'User Placeholder';
+  sender: string = '';
   receiver: string = '';
   content: string = '';
-  timeSent: string = ''; //change it to date if it start glitching
+  timeSent: string = '';
 }

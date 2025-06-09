@@ -14,17 +14,16 @@ import { SessionManagementService } from '../../../../../services/sessionManagem
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
 
-  //extract username from Jwtclaims => its the subject.
+  //extract receiver name from somewhere
   chatTitle: string = '';
   message = new MessageDTO();
 
   private chatRoomId: string = '';
   socket!: WebSocket;
 
-  //currentUser == message.sellerName
-  currentUser: any
+  username: string = '';
 
   public messages: MessageDTO[] = []
 
@@ -35,6 +34,7 @@ export class ChatComponent implements OnInit{
 
     this.chatRoomId = this.urlRoute.snapshot.paramMap.get('chatRoomId') || '';
     this.socket = new WebSocket(`${webSocketUrl}/${this.chatRoomId}`);
+    this.username = this.sessionManagement.getUsernameFromSession() || '';
 
     this.socket.onmessage = (event) => {
       const message: MessageDTO = JSON.parse(event.data);
@@ -59,7 +59,7 @@ export class ChatComponent implements OnInit{
     this.message = {
       id: '',
       chatRoomId: this.chatRoomId,
-      sender: this.sessionManagement.getUsernameFromSession() || '',
+      sender: this.username,
       receiver: '',
       content: this.message.content,
       timeSent: ''
@@ -69,7 +69,7 @@ export class ChatComponent implements OnInit{
     this.message.content = '';
   }
 
-  goBack(): void{
+  goBack(): void {
     window.history.back();
   }
 
