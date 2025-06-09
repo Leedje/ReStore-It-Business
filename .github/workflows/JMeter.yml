@@ -35,12 +35,3 @@ jobs:
       - name: Run JMeter Load Test
         run: |
           jmeter -n -t JMeter-performanceTests/load-test.jmx -l results.jtl
-
-  uploadResults:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Upload Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: jmeter-results
-          path: results.jtl
