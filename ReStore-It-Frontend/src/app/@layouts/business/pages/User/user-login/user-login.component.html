@@ -1,7 +1,7 @@
 <div class="login-box">
   <div class="card card-outline card-primary">
     <div class="card-header">
-      <a href="../index2.html" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
+      <a role="button" (click)="navigateToGuest()" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
         <h1 class="mb-0">ReStore<b>It</b></h1>
       </a>
     </div>
@@ -25,24 +25,12 @@
           <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
         </div>
 
-        <!--begin::Row-->
-        <div class="row">
-          <div class="col-8 d-inline-flex align-items-center">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-              <label class="form-check-label" for="flexCheckDefault"> Remember Me </label>
-            </div>
-          </div>
-        </div>
-        <!--end::Row-->
-
         <div class="social-auth-links text-center mb-3 d-grid gap-2">
           <button type="submit" class="btn btn-primary">Sign in</button>
         </div>
 
       </form>
 
-      <p class="mb-1"><a href="#">I forgot my password</a></p> <!--This is here for style-->
       <p class="mb-0">
         Don't have an account? <a role="button" (click)="navigateToRegistration()" class="text-center"> Sign up </a>
       </p>

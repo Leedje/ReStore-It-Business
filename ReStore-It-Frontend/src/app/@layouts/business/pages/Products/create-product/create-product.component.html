@@ -32,30 +32,12 @@
             [(ngModel)]="product.description" />
         </div>
 
-        <div class="col-md-6">
-          <label for="categories" class="form-label">Categories</label>
-          <div class="dropdown-wrapper" >
-            <div class="pill-box-container mt-2" >
-              <span *ngFor="let category of product.categories" class="pill-box">
-                {{ category.name }}
-                <button type="button" class="close-pill" (click)="removeCategory(category)">×</button>
-              </span>
-            </div>
-            <div *ngIf="product.categories.length === 0" (click)="toggleDropdown()" class="selected-category bg-white" style="color: black">
-              {{ selectedCategory ? selectedCategory.name : 'Select categories...' }}
-            </div>
-
-            <div *ngIf="product.categories.length === 0" class="invalid-feedback">
-              Please select at least one category.
-            </div>
-
-            <select class="form-select" id="categories" name="categories" multiple
-              [ngClass]="{'hidden': !isDropdownOpen}" (change)="selectCategory($event)">
-              <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
-            </select>
+          <div class="col-md-6">
+            <app-category-selector
+            [categories]="categories"
+            [product]="product">
+            </app-category-selector>
           </div>
-
-        </div>
 
         <div class="col-md-6">
           <label for="size" class="form-label">Size</label>

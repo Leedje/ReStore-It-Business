@@ -1,0 +1,78 @@
+<div class="app-content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="mb-0">Orders</h3> <!-- ✅ Updated Page Title -->
+      </div>
+      <div class="col-sm-6">
+        <ol (click)='navigateToCompletedOrders()' class="breadcrumb float-sm-end">
+          <button class="breadcrumb-item active, btn btn-info"><a>View completed orders</a></button>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+    <!--Confirm dialogue-->
+    <app-confirm-dialogue *ngIf="showConfirmDialogue"
+    [title]="'Complete Order'"
+    [message]="'Warning: This action cannot be undone. Are you sure you want to complete this order?'"
+    [isVisible]="showConfirmDialogue"
+    (confirm)="handleDialogResponse($event)">
+    </app-confirm-dialogue>
+    <!--end Confirm dialogue-->
+</div>
+
+<div *ngIf="pendingOrders.length == 0" class="app-content">No orders</div>
+
+<div *ngIf="pendingOrders.length" class="col-md-12">
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3 class="card-title">Orders</h3> <!-- ✅ Updated Card Title -->
+      <div class="card-tools">
+        <!-- Pagination -->
+        <ul class="pagination pagination-sm float-end">
+          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-body table-responsive p-0">
+      <!-- Responsive Table -->
+      <table class="table table-hover text-nowrap">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Products to ship</th>
+            <th>Total Profit (€)</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle" *ngFor="let order of pendingOrders">
+            <td>{{ order.id }}</td>
+            <td>
+              <div *ngFor="let product of order.products">
+                <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+                <span>{{ product.name }}</span>
+              </div>       </td>
+            <td>{{ calculateTotalProfit(order) | number:'1.2-2' }}</td>
+            <td>
+              <span class="status-pending">Pending</span>
+            </td>
+            <td>
+              <!-- Complete Order Button -->
+              <span role="button" (click)="openConfirmDialogue(order)" title="Complete Order">
+                <i class="bi bi-clipboard2-check-fill"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

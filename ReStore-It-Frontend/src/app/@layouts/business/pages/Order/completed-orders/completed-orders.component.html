@@ -1,0 +1,65 @@
+<div class="app-content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="mb-0">Completed Orders</h3>
+      </div>
+      <div class="col-sm-6">
+        <ol (click)='navigateToPendingOrders()' class="breadcrumb float-sm-end">
+          <button class="breadcrumb-item active btn btn-info">
+            <i class="bi bi-arrow-left"></i>
+            <a> Back to Pending Orders</a>
+          </button>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="completedOrders.length == 0" class="app-content">Nothing here</div>
+
+<div *ngIf="completedOrders" class="col-md-12">
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3 class="card-title">Completed Orders</h3>
+      <div class="card-tools">
+        <!-- Pagination -->
+        <ul class="pagination pagination-sm float-end">
+          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-body table-responsive p-0">
+      <table class="table table-hover text-nowrap">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Products to Ship</th>
+            <th>Total Profit (€)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle" *ngFor="let order of completedOrders">
+            <td>{{ order.id }}</td>
+            <td>
+              <div *ngFor="let product of order.products">
+                <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+                <span>{{ product.name }}</span>
+              </div>
+            </td>
+            <td>{{ calculateTotalProfit(order) | number:'1.2-2' }}</td>
+            <td>
+              <span class="status-completed">Completed</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

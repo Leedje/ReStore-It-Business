@@ -5,26 +5,37 @@ import { Injectable } from '@angular/core';
 })
 export class SessionManagementService {
 
-  private sessionKey = "ReStoreIt_UserRole";
-  
   constructor() { }
 
-  setSession(userSession: any): void{
-    localStorage.setItem(this.sessionKey, JSON.stringify(userSession))
+  setSession(token: string): void{
+    sessionStorage.setItem("token", token);
   }
 
   getSession(): any | null {
-    const session = localStorage.getItem(this.sessionKey);
-    return session ? JSON.parse(session) : null;
+    return sessionStorage.getItem("token");
   }
 
   endSession(): void {
-    localStorage.removeItem(this.sessionKey);
+    sessionStorage.removeItem("token");
   }
 
   isAuthenticated(): boolean {
     return !!this.getSession();
   }
+
+  getUsernameFromSession(): string | null {
+    const token = this.getSession();
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.sub;
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return null;
+    }
+  }
+
 
   handleSessionExpiry(): void {
     // research how to implement session expiry for extra security

@@ -1,0 +1,24 @@
+<div style="margin: 20px;" class="card card-info card-outline mb-4">
+  <h1 class="d-flex align-items-center">
+    <button style="margin: 5px;" class="btn btn-info me-2" (click)="goBack()">
+      <i style="color: aliceblue;" class="bi bi-arrow-left">Back</i>
+    </button>
+  </h1>
+
+  <div id="messages" class="p-3 chat-box">
+    <div *ngFor="let msg of messages" class="d-flex mb-2 message-bubble"
+      [ngClass]="{'seller-msg': msg.sender === username, 'customer-msg': msg.sender !== username}">
+      <div>
+        <strong>{{ msg.sender }}</strong>: {{ msg.content }}
+      </div>
+    </div>
+  </div>
+
+  <form (submit)="sendMessage()">
+    <div class="d-flex">
+      <input type="text" [(ngModel)]="message.content" name="content" class="form-control mb-2"
+        placeholder="Enter your message">
+      <button type="submit" class="btn btn-info ml-2" style="margin: 3px; color: aliceblue;">Send</button>
+    </div>
+  </form>
+</div>

@@ -19,40 +19,6 @@
     <nav class="mt-2">
       <!--begin::Sidebar Menu-->
       <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-        <li (click)="navigateToHome()" class="nav-item menu-open">
-          <!--Make this toggle, if you're on the business, go to home. If you signed in AND using restore it as a guest,
-          the button should now say Switch to Business-->
-
-          <a class="nav-link active">
-            <i class="nav-icon bi bi-house"></i>
-            <p>
-              Home
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-box-seam-fill"></i>
-            <p>
-              Orders
-              <i class="nav-arrow bi bi-chevron-right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon bi bi-circle"></i>
-                <p>Pending</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon bi bi-circle"></i>
-                <p>Completed</p>
-              </a>
-            </li>
-          </ul>
-        </li>
         <li (click)='navigateToManageProducts()' class="nav-item">
           <a href="" class="nav-link">
             <i class="nav-icon bi bi-pencil-square"></i>
@@ -61,6 +27,22 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a role="button" class="nav-link" (click)="navigateToPendingOrders()">
+            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <p>Orders</p>
+          </a>
+        </li>
+
+        <li (click)="navigateToChat()" class="nav-item">
+          <a href="" class="nav-link">
+            <div class="nav-item-wrapper">
+              <i class="nav-icon bi bi-chat-dots-fill"></i>
+              <span>Chats</span>
+            </div>
+          </a>
+        </li>
+
         <li class="nav-item">
           <a href="#" class="nav-link" (click)="signOut()">
             <p>

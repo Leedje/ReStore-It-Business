@@ -15,19 +15,8 @@ import { UserDTO } from '../../dtos/userDTO';
 
 export class CategorySelectorComponent {
 
-  @Input() product: ProductDTO = {
-    id: '',
-    image: '',
-    name: '',
-    description: '',
-    size: '',
-    seller: '',
-    categories: [],
-    price: 1,
-    numberOfProducts: 1,
-    user: { id: ''}
-  }
-  
+  @Input() product: ProductDTO = new ProductDTO();
+
   @Input() isDropdownOpen: Boolean = false;
   @Input() categories: CategoryDTO[] = [];
 

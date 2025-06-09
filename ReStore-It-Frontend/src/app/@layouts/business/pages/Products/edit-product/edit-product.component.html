@@ -1,68 +1,59 @@
 <div class="card card-info card-outline mb-4 h-100">
-  <!-- Header -->
   <div class="card-header">
     <div class="card-title"><strong>{{ product.name }}</strong></div>
   </div>
 
-  <!-- Card Body -->
-  <div class="card-body h-100 d-flex flex-column justify-content-between">
+  <div class="card-body h-90 d-flex flex-column justify-content-between">
     <div class="row h-100">
-
-      <!-- Product Image [MAKE THIS EDITABLE] -->
       <div class="col-md-6 text-center d-flex align-items-center">
         <img [src]="'assets/default-image.jpg'" class="img-fluid rounded product-image" alt="{{ product.name }}" />
       </div>
 
-      <!-- Remember to bind the model to the input firled with ngModel -->
       <div class="col-md-6 d-flex flex-column justify-content-between">
         <div class="row h-100">
 
           <div class="col-md-6">
             <label class="form-label"><strong>Name</strong></label>
-            <div class="details-box">
-               <input type="text" name="name" ngValue="product.name" />
-              </div>
+            <input type="text" class="form-control" [(ngModel)]="product.name" />
           </div>
+
           <div class="col-md-6">
             <label class="form-label"><strong>Size</strong></label>
-            <div class="details-box">
-              <input type="text" name="size" ngValue="product.size"/>
-            </div>
+            <input type="text" class="form-control" [(ngModel)]="product.size" />
           </div>
 
           <div class="col-md-6">
             <label class="form-label"><strong>Price</strong></label>
-            <div class="details-box">
-              <input type="number" step="0.01" name="price" ngValue="product.price" />
-              </div>
+            <input type="number" class="form-control" [(ngModel)]="product.price" />
           </div>
+
           <div class="col-md-6">
             <label class="form-label"><strong>Quantity</strong></label>
-            <div class="details-box">
-              <input type="number" name="numberOfProducts" ngValue="product.numberOfProducts"  />
-            </div>
+            <input type="number" class="form-control" [(ngModel)]="product.numberOfProducts" />
           </div>
 
           <div class="col-12">
             <label class="form-label"><strong>Description</strong></label>
-            <div class="details-box">
-              <input type="text" name="description" ngValue="product.description" />
-            </div>
+            <input type="text" class="form-control" [(ngModel)]="product.description" />
           </div>
 
-          <!-- Populate with pre-existing categories -->
           <div class="col-12">
-            <label class="form-label"><strong>Categories</strong></label>
-            <div class="pill-box-container mt-2">
-              <span *ngFor="let category of product.categories" class="pill-box">
-                {{ category.name }}
-              </span>
+            <div class="col-md-6">
+              <app-category-selector
+              [categories]="categories"
+              [product]="product">
+              </app-category-selector>
             </div>
+
           </div>
 
         </div>
       </div>
 
     </div>
+  </div>
+
+  <div class="card-footer">
+    <button class="btn btn-info" (click)="EditProduct()">Save Changes</button>
   </div>
 </div>
