@@ -11,6 +11,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   ValidateLogin(loginCredentials: LoginDTO): Observable<HttpResponse<any>>{
-    return this.http.post<HttpResponse<any>>(`/business/login/validate`, loginCredentials, { observe: 'response' });
+    return this.http.post<HttpResponse<any>>(`/login/validate`, loginCredentials, { observe: 'response' });
   }
 }

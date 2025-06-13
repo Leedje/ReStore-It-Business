@@ -12,14 +12,14 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   GetPendingOrders(): Observable<HttpResponse<any>>{
-    return this.http.get<HttpResponse<any>>(`/order/business/pending`, { observe: 'response' });
+    return this.http.get<HttpResponse<any>>(`/orders/pending`, { observe: 'response' });
   }
 
   SetOrderAsComplete(order: OrderDTO): Observable<HttpResponse<any>>{
-    return this.http.post<HttpResponse<any>>(`/order/business/iscomplete`, order, { observe: 'response' });
+    return this.http.post<HttpResponse<any>>(`/orders/set-complete`, order, { observe: 'response' });
   }
 
   GetCompletedOrders(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(`/order/business/completed`, { observe: 'response' });
+    return this.http.get<HttpResponse<any>>(`/orders/completed`, { observe: 'response' });
   }
 }
