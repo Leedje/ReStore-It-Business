@@ -10,23 +10,23 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   GetUserProducts(): Observable<HttpResponse<any>>{
-    return this.http.get(`/products/business`, { observe: 'response' });
+    return this.http.get(`/products/user-products`, { observe: 'response' });
   }
 
   GetProductByUserID(productId: string): Observable<HttpResponse<any>>{
-    return this.http.get<HttpResponse<any>>(`/products/business/${productId}`, { observe: 'response' });
+    return this.http.get<HttpResponse<any>>(`/products/user-products/${productId}`, { observe: 'response' });
   }
 
   CreateProduct(product: ProductDTO): Observable<HttpResponse<any>>{
-    return this.http.post<HttpResponse<any>>(`/products/business/create`, product, { observe: 'response' });
+    return this.http.post<HttpResponse<any>>(`/products/create`, product, { observe: 'response' });
   }
 
   DeleteProduct(id: string): Observable<HttpResponse<any>>{
-    return this.http.delete<HttpResponse<any>>(`/products/business/delete/${id}`, { observe: 'response' });
+    return this.http.delete<HttpResponse<any>>(`/products/delete/${id}`, { observe: 'response' });
   }
 
   EditProduct(product: ProductDTO): Observable<HttpResponse<any>>{
-    return this.http.put<HttpResponse<any>>(`/products/business/edit`, product, { observe: 'response' });
+    return this.http.put<HttpResponse<any>>(`/products/edit`, product, { observe: 'response' });
   }
 
 }
