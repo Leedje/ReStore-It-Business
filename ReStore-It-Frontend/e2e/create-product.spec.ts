@@ -24,15 +24,13 @@ test('The created product should be accessible with the correct information', as
   await page.getByRole('spinbutton', { name: 'Price' }).click();
   await page.getByRole('spinbutton', { name: 'Price' }).fill('21.87');
 
-  // Listen for the create request response
-  const responsePromise = page.waitForResponse((response) =>
+  const backendResponse = page.waitForResponse((response) =>
     response.url().includes('http://localhost:8080/products/create') && response.status() === 201
   );
 
   await page.getByRole('button', { name: 'Create' }).click();
 
-  // Validate response status code
-  const response = await responsePromise;
+  const response = await backendResponse;
   await expect(response.status()).toBe(201);
 
   // Validate created product
