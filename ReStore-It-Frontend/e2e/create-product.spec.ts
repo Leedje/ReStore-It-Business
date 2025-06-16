@@ -1,0 +1,30 @@
+import { test, expect } from '@playwright/test';
+
+test('The created product should be accessible with the correct information', async ({ page }) => {
+  await page.goto('http://localhost:4201/business/login');
+  await page.getByRole('textbox', { name: 'Email' }).click();
+  await page.getByRole('textbox', { name: 'Email' }).fill('business@gmail.com');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('business');
+  await page.getByRole('textbox', { name: 'Password' }).press('Enter');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.getByText('Add Product').click();
+  await page.getByRole('textbox', { name: 'Name' }).click();
+  await page.getByRole('textbox', { name: 'Name' }).fill('Business Product');
+  await page.getByRole('textbox', { name: 'Description' }).click();
+  await page.getByRole('textbox', { name: 'Description' }).fill('Product description');
+  await page.getByRole('textbox', { name: 'Size' }).click();
+  await page.getByRole('textbox', { name: 'Size' }).fill('medium');
+  await page.getByText('Select categories...').click();
+  await page.getByLabel('Categories').selectOption('Sportswear');
+  await page.getByLabel('Categories').selectOption('Boys');
+  await page.getByRole('spinbutton', { name: 'Price' }).click();
+  await page.getByRole('spinbutton', { name: 'Price' }).fill('21.87');
+  await page.getByRole('button', { name: 'Create' }).click();
+  await expect(page.locator('tbody')).toMatchAriaSnapshot(`- cell "Business Product"`);
+  await expect(page.locator('tbody')).toMatchAriaSnapshot(`- cell "medium"`);
+  await expect(page.locator('tbody')).toMatchAriaSnapshot(`- cell /\\d+\\.\\d+/`);
+  await page.getByRole('cell', { name: 'Business Product' }).click();
+  await expect(page.locator('app-product-details')).toMatchAriaSnapshot(`- text: Sportswear`);
+  await expect(page.locator('app-product-details')).toMatchAriaSnapshot(`- text: Boys`);
+});
