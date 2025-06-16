@@ -22,6 +22,7 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     const productId = this.urlRoute.snapshot.paramMap.get('id');
+    
     if (productId) {
       this.productService.GetProductByUserID(productId).subscribe((response: HttpResponse<any>) => {
         if (response.status == 200) {
