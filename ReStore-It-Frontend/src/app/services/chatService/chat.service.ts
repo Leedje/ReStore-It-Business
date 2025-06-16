@@ -10,7 +10,7 @@ export class ChatService {
   constructor(private http: HttpClient) { }
 
   GetUserChats(): Observable<HttpResponse<any>>{
-    return this.http.get<HttpResponse<any>>(`/chat/business`, {observe: 'response'})
+    return this.http.get<HttpResponse<any>>(`/chat/user-chats`, {observe: 'response'})
   }
 
   GetChatHistory(chatRoomId: string): Observable<HttpResponse<any>> {
