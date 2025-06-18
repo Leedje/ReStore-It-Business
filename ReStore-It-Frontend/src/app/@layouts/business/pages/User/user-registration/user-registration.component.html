@@ -2,47 +2,40 @@
   <!-- /.when I open login or register, I shouldn't see the sidebar from the business layout. ALSO, the business home link on the sidebar isn't working properly, it redirects to the guest home  -->
   <div class="card card-outline card-primary">
     <div class="card-header">
-      <a href="../index2.html" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
+      <a class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
         <h1 class="mb-0">ReStore<b>It</b></h1>
       </a>
     </div>
     <div class="card-body register-card-body">
       <p class="register-box-msg">Register and start selling today!</p>
-      <form (ngSubmit)="signInAndRegister(user)">
-        <div class="input-group mb-1">
-          <div class="form-floating">
-            <input id="name" type="text" class="form-control" name="name" [(ngModel)]="user.name" />
-            <label for="name">Full Name</label>
-          </div>
-          <div class="input-group-text"><span class="bi bi-person"></span></div>
+      <form [formGroup]="registerForm" (ngSubmit)="signUpAndRegister()">
+        <div class="input-group mb-2">
+          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Full Name" />
+       </div>
+            <p class="input-group text-danger" *ngIf="required('name')" class="text-danger">Full Name is required.</p>
+
+
+        <div class="input-group mb-2">
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="Email" />
         </div>
-        <div class="input-group mb-1">
-          <div class="form-floating">
-            <input id="email" type="email" class="form-control" name="email" [(ngModel)]="user.email"/>
-            <label for="email">Email</label> <!--warning for: this email already exists-->
-          </div>
-          <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+        <div>
+          <p *ngIf="required('email')" class="text-danger">Email is required.</p>
+          <p *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched" class="text-danger">
+            Invalid email format.</p>
+          <p *ngIf="emailExists" class="text-danger">An account with this email already exists.</p>
         </div>
-        <div class="input-group mb-1">
-          <div class="form-floating">
-            <input id="password" type="password" class="form-control" name="password" [(ngModel)]="user.password" />
-            <label for="password">Password</label>
+
+        <div class="input-group mb-2">
+          <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password" />
+         </div>
+          <div *ngIf="required('password')" class="text-danger">Password is required.</div>
+          <div *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched"
+            class="text-danger">
+            Password must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8
+            characters with no whitespace.
           </div>
-          <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
-        </div>
-        <!--begin::Row-->
-        <div class="row">
-          <div class="social-auth-links text-center mb-3 d-grid gap-2">
-            <button class="btn btn-primary" type="submit">
-              Sign in
-          </button>
-          </div>
-          <!-- /.col -->
-        </div>
-        <!--end::Row-->
-      </form>
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Sign Up</button>
+        </form>
     </div>
-    <!-- /.register-card-body -->
   </div>
 </div>
-<!-- /.register-box -->

@@ -7,10 +7,11 @@ import { HttpResponse } from '@angular/common/http';
 import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
 import { UserDTO } from '../../../../../dtos/userDTO';
 import { LoginDTO } from '../../../../../dtos/loginDTO';
+import { SuccessNotificationComponent } from "../../../../../components/success-notification/success-notification.component";
 
 @Component({
   selector: 'app-user-login',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SuccessNotificationComponent],
   templateUrl: './user-login.component.html',
   styleUrl: './user-login.component.css'
 })
@@ -20,7 +21,6 @@ export class UserLoginComponent {
   loginCredentials: LoginDTO = new LoginDTO();
 
   constructor(private router: Router, private loginService: LoginService, private session: SessionManagementService) {
-
   }
 
   navigateToRegistration(): void {

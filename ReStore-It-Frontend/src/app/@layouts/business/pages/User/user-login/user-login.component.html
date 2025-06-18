@@ -1,10 +1,11 @@
-<div class="login-box">
+<app-success-notification></app-success-notification>
+   <div class="login-box">
   <div class="card card-outline card-primary">
     <div class="card-header">
       <a role="button" (click)="navigateToGuest()" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
         <h1 class="mb-0">ReStore<b>It</b></h1>
       </a>
-    </div>
+       </div>
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in</p>
       <form (ngSubmit)="validateLogin(loginCredentials)">
