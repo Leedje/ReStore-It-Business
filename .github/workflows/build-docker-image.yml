@@ -15,4 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker image build . --file Dockerfile -t restoreit-business:latest 
+      run:  |
+          cd ReStore-It-Frontend
+          docker image build . --file Dockerfile -t restoreit-business:latest 
