@@ -13,8 +13,10 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './user-registration.component.css'
 })
 export class UserRegistrationComponent {
+  
   registerForm: FormGroup;
-  emailExists = false;
+  emailExists: boolean = false;
+  showPassword: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService)
   {

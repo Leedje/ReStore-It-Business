@@ -26,7 +26,8 @@
         </div>
 
         <div class="input-group mb-2">
-          <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password" />
+          <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control" formControlName="password" placeholder="Password" />
+          <div class="input-group-text"><span (click)="showPassword = !showPassword" role="button" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></span></div>
          </div>
           <div *ngIf="required('password')" class="text-danger">Password is required.</div>
           <div *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched"
