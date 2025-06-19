@@ -33,7 +33,7 @@
           <div *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched"
             class="text-danger">
             Password must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8
-            characters with no whitespace.
+            characters long.
           </div>
         <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Sign Up</button>
         </form>
