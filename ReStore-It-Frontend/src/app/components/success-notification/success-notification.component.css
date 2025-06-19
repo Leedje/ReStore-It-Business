@@ -1,0 +1,51 @@
+
+.modal-overlay {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+  width: fit-content;
+  max-width: 90%;
+  background-color: rgba(212, 237, 218, 0.95);
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  padding: 16px 24px;
+  color: #155724;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 0.3s ease-in-out;
+}
+
+.modal-title,
+.modal-body p {
+  color: #155724;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.modal-footer .btn {
+  margin: 0px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+

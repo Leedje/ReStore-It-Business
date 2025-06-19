@@ -1,13 +1,14 @@
-<div class="login-box">
+<app-success-notification></app-success-notification>
+   <div class="login-box">
   <div class="card card-outline card-primary">
     <div class="card-header">
       <a role="button" (click)="navigateToGuest()" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
         <h1 class="mb-0">ReStore<b>It</b></h1>
       </a>
-    </div>
+       </div>
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in</p>
-      <form (ngSubmit)="validateLogin(loginCredentials)">
+      <p class="login-box-msg text-danger" *ngIf="isTimeoutActive">Failed login attempt. {{message}}</p>
+      <form (ngSubmit)="validateLogin()">
 
         <div class="input-group mb-1">
           <div class="form-floating">
@@ -19,14 +20,14 @@
 
         <div class="input-group mb-1">
           <div class="form-floating">
-            <input id="loginPassword" type="password" class="form-control" name="password" [(ngModel)]="loginCredentials.password" />
+            <input id="loginPassword" [type]="showPassword ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="loginCredentials.password" />
             <label for="loginPassword">Password</label>
           </div>
-          <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+          <div class="input-group-text" ><span (click)="showPassword = !showPassword" role="button" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></span></div>
         </div>
 
         <div class="social-auth-links text-center mb-3 d-grid gap-2">
-          <button type="submit" class="btn btn-primary">Sign in</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isTimeoutActive">Sign in</button>
         </div>
 
       </form>
