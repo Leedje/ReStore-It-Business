@@ -27,21 +27,13 @@
 <div *ngIf="pendingOrders.length" class="col-md-12">
   <div class="card mb-4">
     <div class="card-header">
-      <h3 class="card-title">Orders</h3> <!-- ✅ Updated Card Title -->
+      <h3 class="card-title">Orders</h3>
       <div class="card-tools">
-        <!-- Pagination -->
-        <ul class="pagination pagination-sm float-end">
-          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-        </ul>
+
       </div>
     </div>
 
     <div class="card-body table-responsive p-0">
-      <!-- Responsive Table -->
       <table class="table table-hover text-nowrap">
         <thead>
           <tr>
@@ -65,7 +57,6 @@
               <span class="status-pending">Pending</span>
             </td>
             <td>
-              <!-- Complete Order Button -->
               <span role="button" (click)="openConfirmDialogue(order)" title="Complete Order">
                 <i class="bi bi-clipboard2-check-fill"></i>
               </span>

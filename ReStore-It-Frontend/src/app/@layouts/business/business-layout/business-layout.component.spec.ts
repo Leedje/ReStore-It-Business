@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BusinessLayoutComponent } from './business-layout.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('BusinessLayoutComponent', () => {
   let component: BusinessLayoutComponent;
@@ -8,7 +9,10 @@ describe('BusinessLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BusinessLayoutComponent]
+      imports: [BusinessLayoutComponent],
+      providers: [
+        provideHttpClient()
+      ]
     })
       .compileComponents();
 

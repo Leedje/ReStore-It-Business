@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'ReStore-It-Frontend';
+  title = 'ReStoreIt Business';
 }

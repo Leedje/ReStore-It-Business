@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CompletedOrdersComponent } from './completed-orders.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('CompletedOrdersComponent', () => {
   let component: CompletedOrdersComponent;
@@ -8,7 +9,10 @@ describe('CompletedOrdersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CompletedOrdersComponent]
+      imports: [CompletedOrdersComponent],
+      providers: [
+        provideHttpClient()
+      ]
     })
     .compileComponents();
 

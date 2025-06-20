@@ -6,8 +6,9 @@ export const apiInterceptor: HttpInterceptorFn = (request, next) => {
 
   const backendRequest = request.clone({
     url: request.url.startsWith('http') ? request.url : `${backendApiUrl}${request.url}`,
-    setHeaders:  token ? { Authorization: `Bearer ${token}` } : {}
+    setHeaders: token ? { Authorization: `Bearer ${token}` } : {}
   });
 
   return next(backendRequest);
 };
+

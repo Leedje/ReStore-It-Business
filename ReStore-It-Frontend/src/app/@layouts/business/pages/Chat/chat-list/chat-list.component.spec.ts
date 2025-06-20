@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChatListComponent } from './chat-list.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ChatListComponent', () => {
   let component: ChatListComponent;
@@ -8,7 +9,10 @@ describe('ChatListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChatListComponent]
+      imports: [ChatListComponent],
+      providers: [
+        provideHttpClient()
+      ]
     })
     .compileComponents();
 
