@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './user-registration.component.css'
 })
 export class UserRegistrationComponent {
-  
+
   registerForm: FormGroup;
   emailExists: boolean = false;
   showPassword: boolean = false;
@@ -51,7 +51,7 @@ export class UserRegistrationComponent {
   }
 
   required(field: string): boolean {
-    const control = this.registerForm.get(field);
-    return control?.touched && control?.hasError('required') || false;
+    const inputField = this.registerForm.get(field);
+    return inputField?.touched && inputField?.hasError('required') || false;
   }
 }

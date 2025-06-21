@@ -16,24 +16,29 @@
 
 
   <!--begin::Form-->
-  <form class="needs-validation" (ngSubmit)="CreateProduct(product)">
+  <form class="needs-validation" [formGroup]="productForm" (ngSubmit)="CreateProduct()">
     <div class="card-body">
       <div class="row g-3">
 
         <div class="col-md-6">
           <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="product.name" />
-          <div class="invalid-feedback">Please enter a name.</div>
+          <input type="text" class="form-control" id="name" formControlName="name" required />
+          <div class="invalid-feedback" *ngIf="required('name')">Please enter a name.</div>
         </div>
 
         <div class="col-md-6">
           <label for="description" class="form-label">Description</label>
-          <input type="text" class="form-control" id="description" name="description"
-            [(ngModel)]="product.description" />
+          <input type="text" class="form-control" id="description" formControlName="description"required/>
         </div>
 
           <div class="col-md-6">
+            <div class="invalid-feedback" *ngIf="productForm.untouched || productForm.get('categories')?.touched">
+              At least one category must be selected.
+            </div>
+
             <app-category-selector
+            name="categories"
+            required
             [categories]="categories"
             [product]="product">
             </app-category-selector>
@@ -41,29 +46,21 @@
 
         <div class="col-md-6">
           <label for="size" class="form-label">Size</label>
-          <input type="text" class="form-control" id="size" name="size" required [(ngModel)]="product.size" />
-          <div class="invalid-feedback">Please enter a size.</div>
+          <input type="text" class="form-control" id="size" formControlName="size" required />
+          <div class="invalid-feedback" *ngIf="required('size')">Please enter a size.</div>
         </div>
 
         <div class="col-md-6">
           <label for="price" class="form-label">Price</label>
-          <input type="number" step="0.01" class="form-control" id="price" name="price" required
-            [(ngModel)]="product.price" />
-          <div class="invalid-feedback">Please enter a price.</div>
-        </div>
-
-        <div class="col-md-6">
-          <label for="numberOfProducts" class="form-label">Number of products</label>
-          <input type="number" min="" class="form-control" id="numberOfProducts" name="numberOfProducts" required
-            [(ngModel)]="product.numberOfProducts" />
-          <div class="invalid-feedback">Enter the number of available products.</div>
+          <input type="number" step="0.01" class="form-control" id="price" formControlName="price" required/>
+          <div class="invalid-feedback" *ngIf="required('price')">Please enter a price.</div>
         </div>
 
       </div>
     </div>
 
     <div class="card-footer">
-      <button class="btn btn-info" type="submit">Create</button>
+      <button class="btn btn-info" type="submit" >Create</button>
     </div>
 
   </form>

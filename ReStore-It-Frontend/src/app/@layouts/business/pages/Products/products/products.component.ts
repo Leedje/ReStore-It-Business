@@ -6,10 +6,11 @@ import { HttpResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogueComponent } from '../../../../../components/confirm-dialogue/confirm-dialogue.component';
 import { SessionManagementService } from '../../../../../services/sessionManagementService/session-management.service';
+import { SuccessNotificationComponent } from "../../../../../components/success-notification/success-notification.component";
 
 @Component({
   selector: 'app-products',
-  imports: [CommonModule, ConfirmDialogueComponent],
+  imports: [CommonModule, ConfirmDialogueComponent, SuccessNotificationComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })

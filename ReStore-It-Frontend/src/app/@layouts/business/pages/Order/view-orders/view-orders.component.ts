@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { OrderDTO } from '../../../../../dtos/orderDTO';
 import { OrderService } from '../../../../../services/orderService/order.service';
 import { ConfirmDialogueComponent } from "../../../../../components/confirm-dialogue/confirm-dialogue.component";
+import { SuccessNotificationComponent } from "../../../../../components/success-notification/success-notification.component";
 
 @Component({
   selector: 'app-view-orders',
-  imports: [CommonModule, ConfirmDialogueComponent],
+  imports: [CommonModule, ConfirmDialogueComponent, SuccessNotificationComponent],
   templateUrl: './view-orders.component.html',
   styleUrl: './view-orders.component.css'
 })

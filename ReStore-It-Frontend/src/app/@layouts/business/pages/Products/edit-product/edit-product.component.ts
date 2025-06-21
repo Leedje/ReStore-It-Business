@@ -46,8 +46,10 @@ export class EditProductComponent implements OnInit {
 
     this.productService.EditProduct(this.product).subscribe((response: HttpResponse<any>) =>{
       if(response.status == 204){
-        this.router.navigate(['/business']);
-        //display success message on home page
+        this.router.navigate(['/business'],
+          {
+            state: { success: 'Product successfully edited.' }
+          });
       }
     },
   (error) => {
