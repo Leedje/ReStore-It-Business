@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../../services/productService/product.service';
 import { ProductDTO } from '../../../../../dtos/productDTO';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoryService } from '../../../../../services/categoryService/category.service';
 import { CategoryDTO } from '../../../../../dtos/categoryDTO';
 import { Router } from '@angular/router';
@@ -13,7 +13,8 @@ import { CategorySelectorComponent } from "../../../../../components/category-se
 
 @Component({
   selector: 'app-create-product',
-  imports: [CommonModule, FormsModule, ErrorNotificationComponent, CategorySelectorComponent],
+  //standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ErrorNotificationComponent, CategorySelectorComponent],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css'
 })
@@ -24,10 +25,19 @@ export class CreateProductComponent implements OnInit {
   isDropdownOpen: boolean = false;
   selectedCategory: any = null;
 
+  productForm: FormGroup;
   product: ProductDTO = new ProductDTO();
   categories: CategoryDTO[] = [];
 
-  constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService, private session: SessionManagementService) {
+  constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService, private session: SessionManagementService, private fb: FormBuilder) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+      size: ['', Validators.required],
+      price: ['', Validators.required],
+      categories: [[] as CategoryDTO[], Validators.required],
+       //      image: ['']
+      })
   }
 
   ngOnInit() {
@@ -36,12 +46,19 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
-  async CreateProduct(product: ProductDTO){
+  async CreateProduct(){
 
-    // I need to have some form control and some control in the backend too -> and empty product cant be valid.
-    this.productService.CreateProduct(product).subscribe((response: HttpResponse<any>) => {
+    this.productForm.get('categories')?.setValue(this.product.categories);
+    if(this.productForm.invalid || this.product.categories.length <= 0) return;
+
+    this.product = this.productForm.value;
+
+    this.productService.CreateProduct(this.product).subscribe((response: HttpResponse<any>) => {
       if (response.status == 200 || response.status == 201 || response.status != null) {
-        this.router.navigate(["/business"]);
+        this.router.navigate(["/business"],
+          {
+            state: { success: 'Product successfully created.' }
+          });
       }
     },
       (error) => {
@@ -51,15 +68,13 @@ export class CreateProductComponent implements OnInit {
 
   }
 
-  ProductValid(product: ProductDTO): boolean{
-    if (product.name){
-      return true;
-    }
-    return false;
-  }
-
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen
+  }
+
+  required(field: string): boolean {
+    const inputField = this.productForm.get(field);
+    return inputField?.touched && inputField?.hasError('required') || false;
   }
 
   selectCategory(event: any): void {
