@@ -5,8 +5,11 @@
 
   <div class="card-body h-90 d-flex flex-column justify-content-between">
     <div class="row h-100">
+
       <div class="col-md-6 text-center d-flex align-items-center">
-        <img [src]="'assets/default-image.jpg'" class="img-fluid rounded product-image" alt="{{ product.name }}" />
+        <img [src]="product.image" class="img-fluid rounded product-image" alt="{{ product.name }}" />
+        <label class="form-label"><strong>Image</strong></label>
+        <input type="file" class="form-control" [(ngModel)]="product.image" />
       </div>
 
       <div class="col-md-6 d-flex flex-column justify-content-between">

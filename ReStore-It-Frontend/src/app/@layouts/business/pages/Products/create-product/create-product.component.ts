@@ -29,6 +29,9 @@ export class CreateProductComponent implements OnInit {
   product: ProductDTO = new ProductDTO();
   categories: CategoryDTO[] = [];
 
+  imageFile: File | null = null;
+
+
   constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService, private session: SessionManagementService, private fb: FormBuilder) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
@@ -36,7 +39,6 @@ export class CreateProductComponent implements OnInit {
       size: ['', Validators.required],
       price: ['', Validators.required],
       categories: [[] as CategoryDTO[], Validators.required],
-       //      image: ['']
       })
   }
 
@@ -49,11 +51,15 @@ export class CreateProductComponent implements OnInit {
   async CreateProduct(){
 
     this.productForm.get('categories')?.setValue(this.product.categories);
-    if(this.productForm.invalid || this.product.categories.length <= 0) return;
+    if(this.productForm.invalid || this.product.categories.length <= 0 || !this.imageFile) return;
 
     this.product = this.productForm.value;
 
-    this.productService.CreateProduct(this.product).subscribe((response: HttpResponse<any>) => {
+    const formData = new FormData();
+    formData.append('product', new Blob([JSON.stringify(this.product)], { type: 'application/json' }));
+    formData.append('image', this.imageFile);
+
+    this.productService.CreateProduct(formData).subscribe((response: HttpResponse<any>) => {
       if (response.status == 200 || response.status == 201 || response.status != null) {
         this.router.navigate(["/business"],
           {
@@ -66,6 +72,13 @@ export class CreateProductComponent implements OnInit {
         this.displayError = true;
       });
 
+  }
+
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.imageFile = file;
+    }
   }
 
   toggleDropdown(): void {

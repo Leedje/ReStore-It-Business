@@ -17,8 +17,8 @@ export class ProductService {
     return this.http.get<HttpResponse<any>>(`/products/user-products/${productId}`, { observe: 'response' });
   }
 
-  CreateProduct(product: ProductDTO): Observable<HttpResponse<any>>{
-    return this.http.post<HttpResponse<any>>(`/products/create`, product, { observe: 'response' });
+  CreateProduct(productAndImage: FormData): Observable<HttpResponse<any>>{
+    return this.http.post<HttpResponse<any>>(`/products/create`, productAndImage, { observe: 'response' });
   }
 
   DeleteProduct(id: string): Observable<HttpResponse<any>>{
