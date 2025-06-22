@@ -50,7 +50,7 @@
             <td>{{ order.id }}</td>
             <td>
               <div *ngFor="let product of order.products">
-                <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+                <img [src]="'Shoes.webp'" alt="{{ product.name }}" class="product-image" />
                 <span>{{ product.name }}</span>
               </div>       </td>
             <td>{{ calculateTotalProfit(order) | number:'1.2-2' }}</td>

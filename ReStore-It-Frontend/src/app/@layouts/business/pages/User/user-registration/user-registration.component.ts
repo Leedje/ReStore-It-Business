@@ -30,6 +30,10 @@ export class UserRegistrationComponent {
     });
   }
 
+  navigateToLogin(){
+    this.router.navigate(['/business/login']);
+  }
+
   signUpAndRegister() {
     if (this.registerForm.invalid) return;
 
